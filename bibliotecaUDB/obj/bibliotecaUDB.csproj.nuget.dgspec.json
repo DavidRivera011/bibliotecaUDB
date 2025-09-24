@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\GitHub\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB.csproj": {}
+    "C:\\GitHub\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB.csproj": {}
   },
   "projects": {
-    "C:\\GitHub\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB.csproj": {
+    "C:\\GitHub\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\GitHub\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB.csproj",
+        "projectUniqueName": "C:\\GitHub\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB.csproj",
         "projectName": "bibliotecaUDB",
-        "projectPath": "C:\\GitHub\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB.csproj",
+        "projectPath": "C:\\GitHub\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB.csproj",
         "packagesPath": "C:\\Users\\INTEL\\.nuget\\packages\\",
-        "outputPath": "C:\\GitHub\\bibliotecaUDB\\bibliotecaUDB\\bibliotecaUDB\\obj\\",
+        "outputPath": "C:\\GitHub\\bibliotecaUDB\\bibliotecaUDB\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -63,6 +63,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.9, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.7, )"
             }
           },
           "imports": [
