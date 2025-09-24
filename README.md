@@ -1,2 +1,2 @@
 # bibliotecaUDB
-Repositorio de investigacion aplicada sobre la bibliotecaUDB
+Repositorio de investigacion aplicado sobre la bibliotecaUDB
