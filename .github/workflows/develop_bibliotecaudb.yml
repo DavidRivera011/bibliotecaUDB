@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: windows-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -26,28 +26,28 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+      - name: Publish .NET app
+        run: dotnet publish bibliotecaUDB/bibliotecaUDB.csproj -c Release -o bibliotecaUDB/bibliotecaUDB/bin/Release/net8.0/publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: dotnet-app
+          path: bibliotecaUDB/bibliotecaUDB/bin/Release/net8.0/publish
 
   deploy:
     runs-on: windows-latest
     needs: build
     permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
+      id-token: write
+      contents: read
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: .net-app
-      
+          name: dotnet-app
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -61,5 +61,4 @@ jobs:
         with:
           app-name: 'BibliotecaUDB'
           slot-name: 'Production'
-          package: .
-          
+          package: bibliotecaUDB/bibliotecaUDB/bin/Release/net8.0/publish
