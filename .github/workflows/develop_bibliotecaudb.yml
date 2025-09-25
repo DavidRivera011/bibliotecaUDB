@@ -1,64 +1,54 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - BibliotecaUDB
+name: Deploy ASP.NET Core app to Azure Web App
 
 on:
   push:
     branches:
-      - develop
+      - main
   workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '8.0'
+  AZURE_WEBAPP_NAME: 'BibliotecaUDB'
+  AZURE_WEBAPP_PACKAGE_PATH: './publish'
 
 jobs:
   build:
     runs-on: windows-latest
-    permissions:
-      contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      # 1️⃣ Clonar el repositorio
+      - uses: actions/checkout@v3
 
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v4
+      # 2️⃣ Configurar .NET
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.x'
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      # 3️⃣ Restaurar dependencias
+      - name: Restore dependencies
+        run: dotnet restore
 
-      - name: Publish .NET app
-        run: dotnet publish bibliotecaUDB/bibliotecaUDB.csproj -c Release -o bibliotecaUDB/bibliotecaUDB/bin/Release/net8.0/publish
+      # 4️⃣ Build
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: dotnet-app
-          path: bibliotecaUDB/bibliotecaUDB/bin/Release/net8.0/publish
+      # 5️⃣ Publish
+      - name: Publish
+        run: dotnet publish -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
   deploy:
     runs-on: windows-latest
     needs: build
-    permissions:
-      id-token: write
-      contents: read
 
     steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: dotnet-app
-
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C97ECC13E8034FF9AC76A512BE144041 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3DB22E4249D14EC58F427D9301DEC496 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_BDC7A3A7D43743479D3B1C3F684CAA98 }}
-
+      # 1️⃣ Descargar carpeta publicada
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
+        uses: azure/webapps-deploy@v2
         with:
-          app-name: 'BibliotecaUDB'
-          slot-name: 'Production'
-          package: bibliotecaUDB/bibliotecaUDB/bin/Release/net8.0/publish
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
