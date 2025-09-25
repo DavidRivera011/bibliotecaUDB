@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("bibliotecaUDB")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bbb8fca6406c3931c13b462dcb1334af2b384f59")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0e0243036b70b41adbdfd3ea27b54604c4355f1d")]
 [assembly: System.Reflection.AssemblyProductAttribute("bibliotecaUDB")]
 [assembly: System.Reflection.AssemblyTitleAttribute("bibliotecaUDB")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
