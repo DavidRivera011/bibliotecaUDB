@@ -6,7 +6,6 @@ on:
       - main
   workflow_dispatch:
 
-# Variables de entorno globales
 env:
   DOTNET_VERSION: '8.0'
   AZURE_WEBAPP_NAME: 'BibliotecaUDB'
