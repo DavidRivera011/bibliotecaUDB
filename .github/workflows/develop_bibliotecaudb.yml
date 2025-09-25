@@ -9,7 +9,7 @@ on:
 env:
   DOTNET_VERSION: '8.0'
   AZURE_WEBAPP_NAME: 'BibliotecaUDB'
-  AZURE_WEBAPP_PACKAGE_PATH: './publish'
+  AZURE_WEBAPP_PACKAGE_PATH: 'publish'
 
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
         run: dotnet build ./bibliotecaUDB/bibliotecaUDB.csproj --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish ./bibliotecaUDB/bibliotecaUDB.csproj -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        run: dotnet publish ./bibliotecaUDB/bibliotecaUDB.csproj -c Release -o ${{ github.workspace }}/publish
 
   deploy:
     runs-on: windows-latest
@@ -42,4 +42,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          package: ${{ github.workspace }}/publish
